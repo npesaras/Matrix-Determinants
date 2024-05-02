@@ -64,9 +64,8 @@ public class Main {
                     "1. Print Matrix\n" +
                     "2. Show Step-by-Step Solutions for Determinant\n" +
                     "3. Calculate Determinant using Cofactor Expansion\n" +
-                    "4. Verify Determinant\n" +
-                    "5. Input another values\n" +
-                    "6. Exit Program\n" +
+                    "4. Input another values\n" +
+                    "5. Exit Program\n" +
                     "Enter the number of your choice: ");
 
             int option = getIntInput();
@@ -84,9 +83,8 @@ public class Main {
                     double determinant = calculateDeterminant(matrix);
                     System.out.println("The determinant is: " + determinant);
                 }
-                case 4 -> verifyDeterminant();
-                case 5 -> collectMatrix();
-                case 6 -> {
+                case 4 -> collectMatrix();
+                case 5 -> {
                     System.out.println("Exiting the program.");
                     repeatLoop = false;
                 }
@@ -94,8 +92,6 @@ public class Main {
             }
         }
     }
-
-
     /*
     * Displays the step-by-step solutions for calculating the determinant of a matrix.
     * If the matrix has a dimension of 1, the determinant is the single element itself.
@@ -120,27 +116,9 @@ public class Main {
             double[][] minor = getMinor(matrix, 0, j); // Get the minor matrix for the element.
             System.out.println("Cofactor for element at (1," + (j + 1) + ") = " + matrix[0][j] + " * " + ((int) Math.pow(-1, j)) + " = " + cofactor);
             System.out.println("Minor for element at (1," + (j + 1) + "):");
-            printMatrixForm(minor); // Display the minor matrix.
+            printMatrixForm(minor);
+            System.out.println(" "); // Display the minor matrix.
             System.out.println("Determinant of this minor: " + calculateDeterminant(minor)); // Calculate and display the determinant of the minor.
-        }
-    }
-
-    private static double lastCalculatedDeterminant = Double.NaN;  // NaN indicates no determinant has been calculated yet.
-
-    public static void verifyDeterminant() {
-        if (Double.isNaN(lastCalculatedDeterminant)) {
-            System.out.println("No determinant calculated yet. Please calculate the determinant first.");
-            return;
-        }
-
-        double currentDeterminant = calculateDeterminant(matrix);
-        System.out.println("Previously calculated determinant: " + lastCalculatedDeterminant);
-        System.out.println("Re-calculated determinant: " + currentDeterminant);
-
-        if (Math.abs(lastCalculatedDeterminant - currentDeterminant) < 0.0001) {  // Using a tolerance for floating-point comparison
-            System.out.println("Verification successful: The determinants match.");
-        } else {
-            System.out.println("Verification failed: The determinants do not match.");
         }
     }
 
@@ -164,8 +142,6 @@ public class Main {
                 }
             }
         }
-
-        lastCalculatedDeterminant = determinant; // Store the calculated determinant for verification.
         return determinant; // Return the calculated determinant.
     }
 
@@ -194,16 +170,15 @@ public class Main {
 
     public static void printMatrixForm(double[][] matrix) {
         for (double[] row : matrix) {
-            System.out.print("| ");
+            System.out.print("|");
             for (double value : row) {
                 if (Math.floor(value) == value) {
-                    System.out.print((int) value + " ");  // Print as integer if no fractional part
+                    System.out.printf("%5d ", (int) value);  // Print as integer with width of 5
                 } else {
-                    System.out.printf("%.2f ", value);  // Print with two decimal places if fractional part exists
+                    System.out.printf("%8.2f ", value);  // Print with two decimal places with width of 8
                 }
             }
             System.out.println("|");
         }
     }
-
 }
