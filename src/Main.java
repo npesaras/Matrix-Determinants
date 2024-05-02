@@ -1,10 +1,3 @@
-/*Pesaras, Nilmar T.
-ITE114
-IT2D.1
-Solving Determinants using Co-Factor Expansion
-*/
-
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
