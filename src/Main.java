@@ -71,31 +71,26 @@ public class Main {
 
             int option = getIntInput();
             switch (option) {
-                case 1:
+                case 1 -> {
                     System.out.println("\nHere is the Matrix:");
                     printMatrixForm(matrix);
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     System.out.println("\nStep-by-Step Solution for Determinant:");
                     showDeterminantSolutions(matrix);
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     System.out.println("\nDeterminant of the matrix:");
                     double determinant = calculateDeterminant(matrix);
                     System.out.println("The determinant is: " + determinant);
-                    break;
-                case 4:
-                    verifyDeterminant();
-                    break;
-                case 5:
-                    collectMatrix();
-                    break;
-                case 6:
+                }
+                case 4 -> verifyDeterminant();
+                case 5 -> collectMatrix();
+                case 6 -> {
                     System.out.println("Exiting the program.");
                     repeatLoop = false;
-                    break;
-                default:
-                    System.out.println("Invalid option. Please enter a valid choice.");
+                }
+                default -> System.out.println("Invalid option. Please enter a valid choice.");
             }
         }
     }
@@ -158,16 +153,15 @@ public class Main {
     public static double calculateDeterminant(double[][] matrix) {
         int n = matrix.length; // Get the dimension of the matrix.
         double determinant = 0; // Initialize the determinant.
-
         // Base cases for 1x1 and 2x2 matrices
-        if (n == 1) {
-            determinant = matrix[0][0]; // For a 1x1 matrix, the determinant is the single element.
-        } else if (n == 2) {
-            determinant = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]; // For a 2x2 matrix, use the standard formula.
-        } else {
-            // For larger matrices, use cofactor expansion to calculate the determinant.
-            for (int j = 0; j < n; j++) {
-                determinant += Math.pow(-1, j) * matrix[0][j] * calculateDeterminant(getMinor(matrix, 0, j));
+        switch (n) {
+            case 1 -> determinant = matrix[0][0]; // For a 1x1 matrix, the determinant is the single element.
+            case 2 -> determinant = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]; // For a 2x2 matrix, use the standard formula.
+            default -> {
+                // For larger matrices, use cofactor expansion to calculate the determinant.
+                for (int j = 0; j < n; j++) {
+                    determinant += Math.pow(-1, j) * matrix[0][j] * calculateDeterminant(getMinor(matrix, 0, j));
+                }
             }
         }
 
